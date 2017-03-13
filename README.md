@@ -1,4 +1,4 @@
-<h2>Creates the tables, populates the tables, queries, and deletes the tables for a database containing information describing sailors, boats and boat reservations.</h2>
+<h2>Creates the tables, populates the tables, queries, and deletes the tables for a database containing information describing sailors, boats, and boat reservations.</h2>
 
 Authors: Evan Arroyo and Joshua Sims  
 Date: 29 March 2017
