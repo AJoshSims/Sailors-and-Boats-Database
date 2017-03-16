@@ -7,6 +7,12 @@
 -- @author Mark Holliday
 -- @version 24 February 2017
 
+
+\i create_tables.sql
+
+\i populate_tables.sql
+
+
 \echo 'Problem 1: Find the names of sailors who have reserved boat 103.'
 
 \echo '\nResult should be:\nsname\nDustin\nLubber\nHoratio\n'
@@ -106,4 +112,4 @@ your answer must be a substantively different nested subquery.'
 
 \echo 'replace this line (including \echo) with your query'
 
-
+\i drop_tables.sql
