@@ -17,35 +17,45 @@
 
 \echo '\nResult should be:\nsname\nDustin\nLubber\nHoratio\n'
 
-\echo 'replace this line (including \echo) with your query'
-
+SELECT distinct sname
+FROM sailors as S, reserves
+WHERE bid IN(SELECT bid
+             FROM reserves as R
+             WHERE bid = 103 AND S.sid = R.sid );
 
 \echo 'Problem 2: Find the name of sailors who have reserved a red boat.'
 
 \echo 'Result should be:\nsname\nDustin\nLubber\nHoratio\n'
 
-\echo 'replace this line (including \echo) with your query'
-
+SELECT distinct S.sname
+FROM boats, sailors as S
+WHERE color IN(SELECT color
+               FROM reserves as R
+               WHERE color = 'red' AND S.sid = R.sid);
+                
 
 
 \echo 'Problem 3: Find the names of sailors who have not reserved a red boat.'
 
-\echo 'Result should be:\nsname\nBrutus\nAndy\nRusty\nZorba\nHoratio\nArt\nBob\n'
+\echo 'Result should be:\nsname\nBrutus\nAndy\nRusty\nZorba\nArt\nBob\n'
 
-\echo 'replace this line (including \echo) with your query'
+SELECT distinct S.sname
+FROM boats, sailors as S
+WHERE color NOT IN(SELECT color 
+                   FROM reserves as R
+                   WHERE R.sid = S.sid);
 
 
-
-\echo 'Problem 4:Find the names of sailors who have reserved boat number 103. 
-Yes, this is the same query as Problem 1 above but
-your answer must be substantially different with respect to the form of 
-the nested subquery and the
-connective that you use.'
+\echo 'Problem 4:Find the names of sailors who have reserved boat number 103.' 
 
 \echo '\nResult should be:\nsname\nDustin\nLubber\nHoratio\n'
 
-\echo 'replace this line (including \echo) with your query'
-
+SELECT distinct S.sname
+FROM sailors as S, reserves as R
+WHERE S.sid = R.sid AND EXISTS(SELECT *
+                               FROM reserves 
+                               WHERE bid = '103');
+                    
 
 
 \echo 'Problem 5: Find the sailors whose rating is better than some sailor called Horatio.'
@@ -54,8 +64,12 @@ connective that you use.'
 
 \echo 'Result should be:\nsid\n31\n32\n58\n71\n74\n'
 
-\echo 'replace this line (including \echo) with your query'
-
+SELECT distinct sname, sid
+FROM sailors
+WHERE rating > some(SELECT rating
+                    FROM sailors
+                    WHERE sname = 'Horatio');
+                    
 
 
 \echo 'Problem 6: Find the sailors whose rating is better than all the sailors called Horatio.'
@@ -64,8 +78,11 @@ connective that you use.'
 
 \echo 'Result should be:\nsid\n58\n71\n'
 
-\echo 'replace this line (including \echo) with your query'
-
+SELECT distinct sname, sid
+FROM sailors
+WHERE rating > all(SELECT rating
+                   FROM sailors
+                   WHERE sname = 'Horatio');
 
 
 \echo 'Problem 7: Find sailors with the highest rating.'
@@ -74,7 +91,13 @@ connective that you use.'
 
 \echo 'Result should be:\nsid\n58\n71\n'
 
-\echo 'replace this line (including \echo) with your query'
+SELECT distinct sname, sid
+FROM sailors
+GROUP BY sname, sid
+HAVING max(rating) >= all(SELECT max(rating)
+                          FROM sailors
+                          GROUP BY sname, sid);
+                    
 
 
 
@@ -82,7 +105,23 @@ connective that you use.'
 
 \echo 'Result should be:\nsname\nDustin\nLubber\n'
 
-\echo 'replace this line (including \echo) with your query'
+
+
+(SELECT distinct S.sname
+FROM boats, sailors as S
+WHERE color IN(SELECT color
+               FROM reserves as R
+               WHERE color = 'red' AND S.sid = R.sid))
+
+INTERSECT
+
+(SELECT distinct S.sname
+FROM boats, sailors as S
+WHERE color IN(SELECT color
+               FROM reserves as R
+               WHERE color = 'green' AND S.sid = R.sid));
+
+
 
 
 
