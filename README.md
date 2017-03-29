@@ -17,3 +17,6 @@ tables, queries the database, and deletes the tables.**
 	* Removes the tables previously created for the data
 * assg3_tester.sql
     * Executes each of the aforementioned .sql files and queries the database
+
+The solutions to problems 1, 2, 3, and 8 use correlated subqueries. The correlated subqueries therein are identified as such because they are reevaluated for each row of the virtual table defined by the FROM clause of the outer query.
+

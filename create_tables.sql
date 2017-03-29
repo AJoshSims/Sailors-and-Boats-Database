@@ -2,33 +2,30 @@
 -- @author Joshua Sims
 -- @version 29 March 2017
 
-CREATE TABLE sailors(
-
+CREATE TABLE sailors
+(
     sid     INTEGER,
-    sname   varchar(20),
+    sname   VARCHAR(20),
     rating  INTEGER,
     age     REAL,
-    primary key(sid)
-
+    PRIMARY KEY(sid)
 );
 
-CREATE TABLE boats(
-
+CREATE TABLE boats
+(
     bid     INTEGER,
-    sname   varchar(20),
-    color   varchar(10),
-    primary key(bid)
-
+    sname   VARCHAR(20),
+    color   VARCHAR(10),
+    PRIMARY KEY(bid)
 );
 
 
-CREATE TABLE reserves(
-
+CREATE TABLE reserves
+(
     sid     INTEGER,
     bid     INTEGER,
     day     DATE,
-    primary key(sid,bid),
-    foreign key(sid) references sailors,
-    foreign key(bid) references boats
-
+    PRIMARY KEY(sid,bid),
+    FOREIGN KEY(sid) REFERENCES sailors,
+    FOREIGN KEY(bid) REFERENCES boats
 );
